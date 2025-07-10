@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:credit_flutter/routes/app_router.dart'; // Ensure this path is correct
+import 'package:go_router/go_router.dart';
+import 'features/welcome/welcome_screen.dart';
+import 'features/registration/registration_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final GoRouter _router = GoRouter(
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (context, state) => const WelcomeScreen(),
+      ),
+      GoRoute(
+        path: '/register',
+        builder: (context, state) => const RegistrationScreen(),
+      ),
+    ],
+  );
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Crédit Agricole Assicurazioni',
+      routerConfig: _router,
+      title: 'Crédit Agricole',
       theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        primarySwatch: Colors.teal,
       ),
-      routerConfig: AppRouter.router,
     );
   }
 }
